@@ -9,10 +9,9 @@ file(GLOB sources
         "${PROJECT_SOURCE_DIR}/include/*.h"
         "${PROJECT_SOURCE_DIR}/src/*.cpp")
 
-find_package(Boost 1.71 REQUIRED)
 find_package(Threads)
 
-add_executable(main.out ${sources})
+add_executable(main.out main.cpp ${sources})
 
 target_link_libraries(main.out
             ${CMAKE_THREAD_LIBS_INIT}
