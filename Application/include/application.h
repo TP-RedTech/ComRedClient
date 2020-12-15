@@ -5,10 +5,8 @@
 
 class Application {
 public:
-    Application(int editorId, int docId) : editorId(editorId), docId(docId) {
-        doc = std::shared_ptr<Document>(new Document());
-        client = std::shared_ptr<Client>(new Client());
-    }
+    Application(int editorId, int docId) : editorId(editorId), docId(docId),
+                                           doc(new Document()), client(new Client()) { }
 
     void connect();
 
