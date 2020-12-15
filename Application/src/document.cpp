@@ -1,5 +1,13 @@
-#include "../include/docment.h"
+#include "../include/document.h"
 
-void Document::applyChanges(std::string operations) {
-    std::cout << oeprations << std::endl;
+void Document::updateText(std::string operations) {
+    text += operations;
+}
+
+const std::string& Document::getText() {
+    return text;
+}
+
+void Document::setText(std::string newValue) {
+    text = newValue;
 }

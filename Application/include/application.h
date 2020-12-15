@@ -5,25 +5,18 @@
 
 class Application {
 public:
-    Application(int editorId, int docId) : myId(editorId), docId(docId) {
+    Application(int editorId, int docId) : editorId(editorId), docId(docId) {
         doc = std::shared_ptr<Document>(new Document());
         client = std::shared_ptr<Client>(new Client());
     }
 
-    void connect() {
-        //client.connect(1, 1);
-        std::cout << "Connected" << std::endl;
-    }
+    void connect();
 
-    void update(int cPos, std::string operations) {
-        //auto res = client->update(myId, docId, cPos, operations);
-        doc->applyChanges(operations);
-        std::cout << doc->getText() << std::endl;
-    }
+    void update(int cursorPos, std::string operations);
 
 private:
-    std::shared_ptr<Document> doc;
+    int editorId;
     int docId;
-    int myId;
+    std::shared_ptr<Document> doc;
     std::shared_ptr<Client> client;
 };
