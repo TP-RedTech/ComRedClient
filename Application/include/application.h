@@ -14,6 +14,10 @@ public:
 
     void update(int cursorPos, std::string operations);
 
+    void saveDocument();
+
+    void createDocument(std::string documentName);
+
 private:
     int editorId;
     int docId;

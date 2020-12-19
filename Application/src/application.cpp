@@ -18,9 +18,17 @@ void Application::update(int cursorPos, std::string operations) {
     printText();
 }
 
+void Application::createDocument(std::string documentName) {
+    // TODO:- client->createDocument(editorId, documentName);
+}
+
+void Application::saveDocument() {
+    // TODO:- client->saveDocument(docId);
+}
+
 void Application::getTextDocument() {
     // TODO:- Get updated text from server
+    // client->getTextDocument(docId);
     // TODO:- Update text in client
     // TODO:- Print text
-    return "";
 };
