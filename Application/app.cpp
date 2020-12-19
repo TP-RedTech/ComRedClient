@@ -13,12 +13,20 @@ int main(int argc, const char * argv[]) {
 
     app->connect();
     while(1) {
+        int pos = 0;
+        std::cout << "Enter position of cursor: ";
+        std::cin >> pos ;
+        std::cout << "\n";
+
         std::string line;
+        std::cout << "Enter text: ";
         std::cin >> line;
+        std::cout << "\n";
+
         if (line == "0") {
             break;
         }
-        app->update(0, line);
+        app->update(pos, line);
     }
 
 
