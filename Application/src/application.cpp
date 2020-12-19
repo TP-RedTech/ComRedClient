@@ -17,3 +17,10 @@ void Application::update(int cursorPos, std::string operations) {
     std::cout << "update() res: " << res.second << std::endl << std::endl;
     printText();
 }
+
+void Application::getTextDocument() {
+    // TODO:- Get updated text from server
+    // TODO:- Update text in client
+    // TODO:- Print text
+    return "";
+};

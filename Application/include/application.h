@@ -23,4 +23,6 @@ private:
     void printText() {
         std::cout << std::endl << doc->getText() << std::endl;
     }
+
+    void getTextDocument();
 };
