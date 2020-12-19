@@ -19,7 +19,7 @@ namespace http = beast::http;           // from <boost/beast/http.hpp>
 namespace net = boost::asio;            // from <boost/asio.hpp>
 using tcp = boost::asio::ip::tcp;       // from <boost/asio/ip/tcp.hpp>
 
-void fail(beast::error_code ec, char const *what) {
+inline void fail(beast::error_code ec, char const *what) {
   std::cerr << what << ": ERRORRRRR" << ec.message() << "\n";
 }
 
@@ -131,7 +131,7 @@ public:
   std::string port_;
 };
 
-http::request<http::string_body> constructRequest(http::verb method, const std::string &target, std::string body) {
+inline http::request<http::string_body> constructRequest(http::verb method, const std::string &target, std::string body) {
   http::request<http::string_body> req;
   req.method(method);
   req.target(target);

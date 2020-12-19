@@ -14,8 +14,9 @@ find_package(Threads)
 
 include_directories(${Boost_INCLUDE_DIRS})
 
-add_executable(server ${sources})
+add_library(HTTPClient STATIC ${sources})
+target_include_directories(HTTPClient PUBLIC ${PROJECT_SOURCE_DIR}/src ${CMAKE_THREAD_LIBS_INIT})
 
-target_link_libraries(server
-            ${CMAKE_THREAD_LIBS_INIT}
-        )
+# add_executable(main.out src/main.cpp)
+# target_link_libraries(main.out HTTPClient -pthread)
+

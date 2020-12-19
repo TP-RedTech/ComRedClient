@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.5)
-project(HTTPClient)
+project(Application)
 
 set(CMAKE_CXX_STANDARD 14)
 
@@ -9,10 +9,14 @@ file(GLOB sources
         "${PROJECT_SOURCE_DIR}/include/*.h"
         "${PROJECT_SOURCE_DIR}/src/*.cpp")
 
+find_package(Boost 1.71 REQUIRED)
 find_package(Threads)
 
-add_executable(main.out main.cpp ${sources})
+include_directories(${Boost_INCLUDE_DIRS})
 
-target_link_libraries(main.out
-            ${CMAKE_THREAD_LIBS_INIT}
-        )
+add_library(Application STATIC ${sources})
+target_include_directories(Application PUBLIC ${PROJECT_SOURCE_DIR}/src)
+
+add_executable(app.out app.cpp)
+target_link_libraries(app.out Application HTTPClient -pthread)
+
