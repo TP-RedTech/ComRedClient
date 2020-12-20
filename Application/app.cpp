@@ -15,9 +15,9 @@ int main(int argc, const char * argv[]) {
 
 	std::cout << "\nInput docId: ";
 	std::cin >> docId;
-
     //std::shared_ptr<Application> app(new Application(editorId, docId));
-	// TODO: при коннекте он хочет создать документ, даже если его не нужно создавать
+    app->setDocId(docId);
+
     app->connect();
     while(1) {
         int pos = 0;
