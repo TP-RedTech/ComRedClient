@@ -24,7 +24,7 @@ public:
   ClientOut getTextDocument(int docId);
 
 private:
-  ClientOut _getResponse(const std::string &target, std::string body);
+  ClientOut _getResponse(const http::verb &method, const std::string &target, std::string body);
 
 private:
   RequestSender rs;

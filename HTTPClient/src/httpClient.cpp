@@ -101,30 +101,30 @@ http::request<http::string_body> constructRequest(http::verb method,
 ClientOut Client::update(int editorId, int docId, int cursorPos, const std::string &operations) {
   std::stringstream body;
   body << editorId << " " << docId << " " << cursorPos << " " << operations;
-  return _getResponse("/edit", body.str());
+  return _getResponse(http::verb::post, "/edit", body.str());
 }
 
 ClientOut Client::connect(int editorId, int docId) {
   std::stringstream body;
   body << editorId << " " << docId;
-  return _getResponse("/connect", body.str());
+  return _getResponse(http::verb::get, "/connect", body.str());
 }
 
 ClientOut Client::getTextDocument(int docId) {
   std::stringstream body;
   body << docId;
-  return _getResponse("/getTextDocument", body.str());
+  return _getResponse(http::verb::get, "/getTextDocument", body.str());
 }
 
 ClientOut Client::create(int editorId, const std::string &documentName) {
   std::stringstream body;
   body << editorId << " " << documentName;
-  return _getResponse("/create", body.str());
+  return _getResponse(http::verb::post, "/create", body.str());
 }
 
-ClientOut Client::_getResponse(const std::string &target, std::string body) {
+ClientOut Client::_getResponse(const http::verb &method, const std::string &target, std::string body) {
   ClientOut res;
-  auto response = rs.sendRequest(constructRequest(http::verb::get, target, std::move(body)));
+  auto response = rs.sendRequest(constructRequest(method, target, std::move(body)));
   if (response.result() == http::status::ok)
     res.first = ClientErrors::success;
   else
