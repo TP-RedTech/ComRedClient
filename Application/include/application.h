@@ -20,6 +20,8 @@ public:
 
     void createDocument(std::string documentName);
 
+    void setDocId(const int& newDocId);
+
 private:
     int editorId;
     int docId;

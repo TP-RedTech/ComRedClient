@@ -52,4 +52,8 @@ void Application::getTextDocument() {
 	} else {
 		std::cout << "failure" << std::endl;
 	}
-};
+}
+
+void Application::setDocId(const int &newDocId) {
+	docId = newDocId;
+}
