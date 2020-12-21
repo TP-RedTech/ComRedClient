@@ -69,7 +69,12 @@ int main(int argc, const char * argv[]) {
                 if (line == "0") {
                     err = false;
                 }
-                std::string operation = std::to_string(pos) + "," + line + "," + std::to_string(app->getSizeDoc() - pos);
+                std::string operation = std::to_string(pos) + "," + line + ",";
+                if (line[0] == '-') {
+                	operation += std::to_string(app->getSizeDoc() - pos + std::stoi(line));
+                } else {
+                	operation += std::to_string(app->getSizeDoc() - pos);
+                }
                 app->update(pos, operation);
                 break;
             }
