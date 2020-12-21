@@ -52,5 +52,5 @@ void Application::setDocId(const int &newDocId) {
 }
 
 size_t Application::getSizeDoc() const {
-	return doc->getSize();
+    return doc->getSize();
 }

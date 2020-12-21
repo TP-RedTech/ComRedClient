@@ -6,6 +6,7 @@ void printDocumentMenu() {
 }
 
 void printMainMenu() {
+
     std::cout << std::endl << "[1] - Current text" << std::endl;
     std::cout << "[2] - Send changes" << std::endl;
     std::cout << "[0] - Exit" << std::endl << std::endl;
@@ -55,12 +56,13 @@ int main(int argc, const char * argv[]) {
             }
             case '2': {
                 int pos = 0;
+                app->getTextDocument();
                 std::cout << "Enter position of cursor: ";
                 std::cin >> pos ;
                 std::cout << "\n";
 
                 std::string line;
-                std::cout << "Enter text: ";
+                std::cout << "Enter value: ";
                 std::cin >> line;
                 std::cout << "\n";
 

@@ -13,9 +13,9 @@ void Document::setText(std::string newValue) {
 }
 
 size_t Document::getSize() const {
-	return size;
+    return size;
 }
 
 void Document::setSize(const size_t &newSize) {
-	size = newSize;
+    size = newSize;
 }
