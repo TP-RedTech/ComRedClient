@@ -21,6 +21,14 @@ using tcp = boost::asio::ip::tcp;       // from <boost/asio/ip/tcp.hpp>
 
 void fail(beast::error_code ec, char const *what);
 
+class FUCK {
+public:
+  std::string value;
+  FUCK() {
+    std::cout << "Createrd" << std::endl;
+  }
+};
+
 class Session : public std::enable_shared_from_this<Session> {
 public:
   explicit
@@ -45,6 +53,7 @@ private:
   beast::tcp_stream stream_;
   beast::flat_buffer buffer_;
   http::response<http::string_body> res_;
+  std::shared_ptr<std::string> body_save;
   http::request<http::string_body> req_;
 };
 
