@@ -1,15 +1,22 @@
 #include "include/application.h"
 
 int main(int argc, const char * argv[]) {
-    int editorId;
-    int docId;
+    int editorId = 0;
+    int docId = 0;
     std::cout << "\nInput editorId: ";
     std::cin >> editorId;
 
-    std::cout << "\nInput docId: ";
-    std::cin >> docId;
+	std::shared_ptr<Application> app(new Application(editorId));
 
-    std::shared_ptr<Application> app(new Application(editorId, docId));
+    std::string documentName;
+	std::cout << "\nInput document name: ";
+	std::cin >> documentName;
+	app->createDocument(documentName);
+
+	std::cout << "\nInput docId: ";
+	std::cin >> docId;
+    //std::shared_ptr<Application> app(new Application(editorId, docId));
+    app->setDocId(docId);
 
     app->connect();
     while(1) {
