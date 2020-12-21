@@ -52,7 +52,9 @@ int main(int argc, const char * argv[]) {
                 if (line == "0") {
                     err = false;
                 }
-                app->update(pos, line);
+                std::cout << "<<<<<<<<<<<<<<<<<<<<" << app->getSizeDoc() << std::endl;
+                std::string operation = std::to_string(pos) + "," + line + "," + std::to_string(app->getSizeDoc() - pos);
+                app->update(pos, operation);
                 break;
             }
             default:

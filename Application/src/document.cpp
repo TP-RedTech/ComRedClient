@@ -11,3 +11,11 @@ const std::string& Document::getText() {
 void Document::setText(std::string newValue) {
     text = newValue;
 }
+
+size_t Document::getSize() const {
+	return size;
+}
+
+void Document::setSize(const size_t &newSize) {
+	size = newSize;
+}

@@ -31,10 +31,6 @@ void Application::createDocument(std::string documentName) {
     }
 }
 
-void Application::saveDocument() {
-    // TODO:- client->saveDocument(docId);
-}
-
 void Application::printText() {
     std::cout << std::endl << doc->getText() << std::endl;
 }
@@ -45,6 +41,7 @@ void Application::getTextDocument() {
     if (res.first == ClientErrors::success) {
         doc->setText(res.second);
         std::cout << "Current text: " << doc->getText() << std::endl;
+        doc->setSize(doc->getText().size());
     } else {
         std::cout << res.second << std::endl;
     }
@@ -52,4 +49,8 @@ void Application::getTextDocument() {
 
 void Application::setDocId(const int &newDocId) {
     docId = newDocId;
+}
+
+size_t Application::getSizeDoc() const {
+	return doc->getSize();
 }

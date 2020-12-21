@@ -16,13 +16,13 @@ public:
 
     void update(int cursorPos, std::string operations);
 
-    void saveDocument();
-
     void createDocument(std::string documentName);
 
     void setDocId(const int& newDocId);
 
     void getTextDocument();
+
+    size_t getSizeDoc() const;
 
 private:
     int editorId;
@@ -30,9 +30,6 @@ private:
     std::shared_ptr<Document> doc;
     std::shared_ptr<client::Client> client;
 
-    // TODO: перенести нижние методы в public, как они будут готовы к использованию
-
     void printText();
-
 
 };
