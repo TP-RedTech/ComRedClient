@@ -10,9 +10,9 @@ public:
     Application(int editorId, int docId) : editorId(editorId), docId(docId),
                                            doc(new Document()), client(new client::Client("127.0.0.1", "5555")) { }
 
-	Application(int editorId) : editorId(editorId), doc(new Document()), client(new client::Client("127.0.0.1", "5555")) { }
+    Application(int editorId) : editorId(editorId), doc(new Document()), client(new client::Client("127.0.0.1", "5555")) { }
 
-    void connect();
+    bool connect();
 
     void update(int cursorPos, std::string operations);
 
@@ -21,6 +21,8 @@ public:
     void createDocument(std::string documentName);
 
     void setDocId(const int& newDocId);
+
+    void getTextDocument();
 
 private:
     int editorId;
@@ -32,5 +34,5 @@ private:
 
     void printText();
 
-    void getTextDocument();
+
 };
