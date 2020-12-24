@@ -23,6 +23,8 @@ public:
 
   ClientOut getTextDocument(int docId);
 
+  ClientOut disconnect(int editorId, int docId);
+
 private:
   ClientOut _getResponse(const http::verb &method, const std::string &target, std::string body);
 
