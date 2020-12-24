@@ -1,34 +1,56 @@
 #include "../include/application.h"
 
-void Application::connect() {
+bool Application::connect() {
     auto res = client->connect(editorId, docId);
-    std::cout << "Connected" << std::endl;
-    std::cout << "connect() res: " << res.second << std::endl << std::endl;
-    printText();
+
+    if (res.first == ClientErrors::success) {
+        std::cout << "connect() res: " << res.second << std::endl << std::endl;
+        return true;
+    } else {
+        std::cout << "failure connect" << std::endl;
+        return false;
+    }
+
+    //printText();
 }
 
 void Application::update(int cursorPos, std::string operations) {
     auto res = client->update(editorId, docId, cursorPos, operations);
-    doc->updateText(res.second);
-    std::cout << "Updated" << std::endl;
+    std::cout << "update(): " << res.second << std::endl << std::endl;
     if (res.first == ClientErrors::success) {
-        std::cout << "success" << std::endl;
+        this->getTextDocument();
     }
-    std::cout << "update() res: " << res.second << std::endl << std::endl;
-    printText();
 }
 
 void Application::createDocument(std::string documentName) {
-    // TODO:- client->createDocument(editorId, documentName);
+    auto res = client->create(editorId, documentName);
+    if (res.first == ClientErrors::success) {
+        std::cout << res.second << std::endl;
+    } else {
+        std::cout << res.second << std::endl;
+    }
 }
 
-void Application::saveDocument() {
-    // TODO:- client->saveDocument(docId);
+void Application::printText() {
+    std::cout << std::endl << doc->getText() << std::endl;
 }
 
 void Application::getTextDocument() {
-    // TODO:- Get updated text from server
-    // client->getTextDocument(docId);
-    // TODO:- Update text in client
-    // TODO:- Print text
-};
+    auto res = client->getTextDocument(docId);
+
+    if (res.first == ClientErrors::success) {
+        doc->setText(res.second);
+        std::cout << "Current text: " << doc->getText() << std::endl;
+        doc->setSize(doc->getText().size());
+    } else {
+        std::cout << res.second << std::endl;
+    }
+}
+
+void Application::setDocId(const int &newDocId) {
+    docId = newDocId;
+}
+
+size_t Application::getSizeDoc() const {
+    return doc->getSize();
+}
