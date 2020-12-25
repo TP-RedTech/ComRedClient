@@ -15,6 +15,7 @@
 #include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QFrame>
 #include <QtWidgets/QHeaderView>
+#include <QtWidgets/QLabel>
 #include <QtWidgets/QListWidget>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenu>
@@ -37,11 +38,14 @@ public:
     QFrame *line;
     QWidget *verticalLayoutWidget;
     QVBoxLayout *authOrName;
+    QPushButton *createButton;
+    QPushButton *openButton;
     QFrame *line_2;
     QPushButton *sendButton;
     QTextEdit *textEdit;
     QPushButton *exitButton;
     QListWidget *memberslistWidget;
+    QLabel *labelName;
     QMenuBar *menuBar;
     QMenu *menuMenu;
     QStatusBar *statusBar;
@@ -66,12 +70,22 @@ public:
         line->setFrameShadow(QFrame::Sunken);
         verticalLayoutWidget = new QWidget(centralWidget);
         verticalLayoutWidget->setObjectName(QStringLiteral("verticalLayoutWidget"));
-        verticalLayoutWidget->setGeometry(QRect(760, 20, 171, 80));
+        verticalLayoutWidget->setGeometry(QRect(760, 30, 171, 80));
         authOrName = new QVBoxLayout(verticalLayoutWidget);
         authOrName->setSpacing(6);
         authOrName->setContentsMargins(11, 11, 11, 11);
         authOrName->setObjectName(QStringLiteral("authOrName"));
         authOrName->setContentsMargins(0, 0, 0, 0);
+        createButton = new QPushButton(verticalLayoutWidget);
+        createButton->setObjectName(QStringLiteral("createButton"));
+
+        authOrName->addWidget(createButton);
+
+        openButton = new QPushButton(verticalLayoutWidget);
+        openButton->setObjectName(QStringLiteral("openButton"));
+
+        authOrName->addWidget(openButton);
+
         line_2 = new QFrame(centralWidget);
         line_2->setObjectName(QStringLiteral("line_2"));
         line_2->setGeometry(QRect(730, 120, 231, 16));
@@ -82,17 +96,20 @@ public:
         sendButton->setGeometry(QRect(542, 630, 171, 28));
         textEdit = new QTextEdit(centralWidget);
         textEdit->setObjectName(QStringLiteral("textEdit"));
-        textEdit->setGeometry(QRect(20, 20, 691, 591));
+        textEdit->setGeometry(QRect(20, 30, 691, 581));
         exitButton = new QPushButton(centralWidget);
         exitButton->setObjectName(QStringLiteral("exitButton"));
         exitButton->setGeometry(QRect(762, 630, 171, 28));
         memberslistWidget = new QListWidget(centralWidget);
         memberslistWidget->setObjectName(QStringLiteral("memberslistWidget"));
         memberslistWidget->setGeometry(QRect(760, 150, 171, 461));
+        labelName = new QLabel(centralWidget);
+        labelName->setObjectName(QStringLiteral("labelName"));
+        labelName->setGeometry(QRect(20, 10, 67, 17));
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 960, 26));
+        menuBar->setGeometry(QRect(0, 0, 960, 25));
         menuMenu = new QMenu(menuBar);
         menuMenu->setObjectName(QStringLiteral("menuMenu"));
         MainWindow->setMenuBar(menuBar);
@@ -116,8 +133,11 @@ public:
         action->setText(QApplication::translate("MainWindow", "\320\236\321\202\320\272\321\200\321\213\321\202\321\214", 0));
         action_2->setText(QApplication::translate("MainWindow", "\320\235\320\276\320\262\321\213\320\271", 0));
         action_3->setText(QApplication::translate("MainWindow", "\320\222\321\213\321\205\320\276\320\264", 0));
+        createButton->setText(QApplication::translate("MainWindow", "\320\241\320\276\320\267\320\264\320\260\321\202\321\214", 0));
+        openButton->setText(QApplication::translate("MainWindow", "\320\236\321\202\320\272\321\200\321\213\321\202\321\214", 0));
         sendButton->setText(QApplication::translate("MainWindow", "\320\236\321\202\320\277\321\200\320\260\320\262\320\270\321\202\321\214", 0));
         exitButton->setText(QApplication::translate("MainWindow", "\320\222\321\213\321\205\320\276\320\264", 0));
+        labelName->setText(QApplication::translate("MainWindow", "TextLabel", 0));
         menuMenu->setTitle(QApplication::translate("MainWindow", "Menu", 0));
     } // retranslateUi
 

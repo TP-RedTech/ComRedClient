@@ -31,12 +31,27 @@
     <property name="geometry">
      <rect>
       <x>760</x>
-      <y>20</y>
+      <y>30</y>
       <width>171</width>
       <height>80</height>
      </rect>
     </property>
-    <layout class="QVBoxLayout" name="authOrName"/>
+    <layout class="QVBoxLayout" name="authOrName">
+     <item>
+      <widget class="QPushButton" name="createButton">
+       <property name="text">
+        <string>Создать</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="openButton">
+       <property name="text">
+        <string>Открыть</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </widget>
    <widget class="Line" name="line_2">
     <property name="geometry">
@@ -68,9 +83,9 @@
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>20</y>
+      <y>30</y>
       <width>691</width>
-      <height>591</height>
+      <height>581</height>
      </rect>
     </property>
    </widget>
@@ -97,6 +112,19 @@
      </rect>
     </property>
    </widget>
+   <widget class="QLabel" name="labelName">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>10</y>
+      <width>67</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>TextLabel</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
@@ -104,7 +132,7 @@
      <x>0</x>
      <y>0</y>
      <width>960</width>
-     <height>26</height>
+     <height>25</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuMenu">
