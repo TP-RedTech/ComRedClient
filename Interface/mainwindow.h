@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <iostream>
+#include <memory>
 #include <QMainWindow>
 #include <QPushButton>
 #include <QLabel>
@@ -9,6 +10,7 @@
 
 #include "form.h"
 #include "documentform.h"
+#include "../Application/include/application.h"
 
 #define BTN_COUNT 2
 
@@ -23,7 +25,7 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit MainWindow(QWidget *parent = 0);
+    explicit MainWindow(int editorId, QWidget *parent = 0);
     ~MainWindow();
 
 protected:
@@ -53,6 +55,8 @@ private:
     Form *form;
     DocumentForm *docForm;
     bool docOpened, shift, caps;
+
+    shared_ptr<Application> app;
 };
 
 #endif // MAINWINDOW_H

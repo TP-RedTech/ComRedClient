@@ -27,15 +27,24 @@ SOURCES += \
         main.cpp \
         mainwindow.cpp \
     form.cpp \
-    documentform.cpp
+    documentform.cpp \
+    ../Application/src/application.cpp \
+    ../Application/src/document.cpp \
+    ../HTTPClient/src/httpClient.cpp
 
 HEADERS += \
         mainwindow.h \
     form.h \
-    documentform.h
+    documentform.h \
+    ../Application/include/application.h \
+    ../Application/include/document.h \
+    ../Application/include/header.h \
+    ../HTTPClient/include/client.h \
+    ../HTTPClient/include/httpClient.h
 
 FORMS += \
         mainwindow.ui \
     form.ui \
     documentform.ui
 
+CONFIG   += c++11

@@ -1,9 +1,10 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-MainWindow::MainWindow(QWidget *parent) :
+MainWindow::MainWindow(int editorId, QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::MainWindow)
+    ui(new Ui::MainWindow),
+    app(new Application(editorId))
 {
     ui->setupUi(this);
     this->setWindowTitle("ComRed");
@@ -97,11 +98,14 @@ void MainWindow::getUserData(QStringList data)
 void MainWindow::createDoc(QString name)
 {
     ui->labelName->setText(name); //call app func
+    app->createDocument(name.toStdString());
 }
 
 void MainWindow::openDoc(QString name)
 {
     ui->labelName->setText(name); //call app func
+    app->setDocId(name.toInt());
+    app->connect();
 }
 
 bool MainWindow::eventFilter(QObject *widget, QEvent *event)
@@ -121,11 +125,15 @@ bool MainWindow::eventFilter(QObject *widget, QEvent *event)
         else if (key == Qt::Key_Backspace)
         {
             cursorPos--;
-            text.remove(cursorPos, 1); //instead remove call app func
+            string operation = to_string(cursorPos) + ",-1," + to_string(app->getSizeDoc() - cursorPos - 1);
+            app->update(cursorPos, operation);
+            //text.remove(cursorPos, 1); //instead remove call app func
         }
         else if (key == Qt::Key_Delete)
         {
-            text.remove(cursorPos, 1); //and here
+            string operation = to_string(cursorPos) + ",-1," + to_string(app->getSizeDoc() - cursorPos - 1);
+            app->update(cursorPos, operation);
+            //text.remove(cursorPos, 1); //and here
         }
         else
         {
@@ -134,9 +142,13 @@ bool MainWindow::eventFilter(QObject *widget, QEvent *event)
                 sym = sym.toLower();
             else if (shift)
                 shift = !shift;
-            text.insert(cursorPos, sym); //call app func
+            string operation = to_string(cursorPos) + "," + sym.toStdString() + ",";
+            operation += to_string(app->getSizeDoc() - cursorPos);
+            app->update(cursorPos, operation);
+            //text.insert(cursorPos, sym); //call app func
             cursorPos++;
         }
+        text = QString(app->getTextDocument().c_str());
         ui->textEdit->setText(text);
         cursor.setPosition(cursorPos);
         ui->textEdit->setTextCursor((const QTextCursor) cursor);
