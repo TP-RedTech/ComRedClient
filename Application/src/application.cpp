@@ -12,6 +12,10 @@ bool Application::connect() {
     }
 }
 
+void Application::disconnect() {
+    auto res = client->disconnect(editorId, docId);
+}
+
 void Application::update(int cursorPos, std::string operations) {
     auto res = client->update(editorId, docId, cursorPos, operations);
     std::cout << "update(): " << res.second << std::endl << std::endl;

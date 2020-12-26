@@ -14,6 +14,8 @@ public:
 
     bool connect();
 
+    void disconnect();
+
     void update(int cursorPos, std::string operations);
 
     ClientOut createDocument(std::string documentName);
