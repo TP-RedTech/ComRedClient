@@ -16,11 +16,11 @@ public:
 
     void update(int cursorPos, std::string operations);
 
-    void createDocument(std::string documentName);
+    ClientOut createDocument(std::string documentName);
 
     void setDocId(const int& newDocId);
 
-    void getTextDocument();
+    ClientOut getTextDocument();
 
     size_t getSizeDoc() const;
 

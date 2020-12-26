@@ -10,8 +10,6 @@ bool Application::connect() {
         std::cout << "failure connect" << std::endl;
         return false;
     }
-
-    //printText();
 }
 
 void Application::update(int cursorPos, std::string operations) {
@@ -22,20 +20,21 @@ void Application::update(int cursorPos, std::string operations) {
     }
 }
 
-void Application::createDocument(std::string documentName) {
+ClientOut Application::createDocument(std::string documentName) {
     auto res = client->create(editorId, documentName);
     if (res.first == ClientErrors::success) {
         std::cout << res.second << std::endl;
     } else {
         std::cout << res.second << std::endl;
     }
+    return res;
 }
 
 void Application::printText() {
     std::cout << std::endl << doc->getText() << std::endl;
 }
 
-void Application::getTextDocument() {
+ClientOut Application::getTextDocument() {
     auto res = client->getTextDocument(docId);
 
     if (res.first == ClientErrors::success) {
@@ -45,6 +44,8 @@ void Application::getTextDocument() {
     } else {
         std::cout << res.second << std::endl;
     }
+
+    return res;
 }
 
 void Application::setDocId(const int &newDocId) {
