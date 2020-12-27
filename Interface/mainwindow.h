@@ -7,6 +7,8 @@
 #include <QPushButton>
 #include <QLabel>
 #include <QKeyEvent>
+#include <QTimerEvent>
+#include <QMessageBox>
 
 #include "form.h"
 #include "documentform.h"
@@ -30,6 +32,7 @@ public:
 
 protected:
     bool eventFilter(QObject *widget, QEvent *event);
+    void timerEvent(QTimerEvent *event);
 
 signals:
     void registerClick(QString);

@@ -40,6 +40,7 @@ MainWindow::MainWindow(int editorId, QWidget *parent) :
 
 MainWindow::~MainWindow()
 {
+    app->disconnect();
     if (userData)
         delete userData;
     for (int i = 0; i < BTN_COUNT; i++)
@@ -70,6 +71,7 @@ void MainWindow::logout()
     userData = NULL;
     for (int i = 0; i < BTN_COUNT; i++)
         buttons[i]->setHidden(false);
+    app->disconnect();
 }
 
 void MainWindow::sendText()
@@ -97,15 +99,31 @@ void MainWindow::getUserData(QStringList data)
 
 void MainWindow::createDoc(QString name)
 {
-    ui->labelName->setText(name); //call app func
-    app->createDocument(name.toStdString());
+    //ui->labelName->setText(name); //call app func
+    auto result = app->createDocument(name.toStdString());
+    if (result.first == ClientErrors::success)
+        QMessageBox::information(this, "Successful", QString((string("Document was created with id ") + result.second).c_str()));
+    else
+        QMessageBox::critical(this, "Error", QString(result.second.c_str()));
 }
 
 void MainWindow::openDoc(QString name)
 {
     ui->labelName->setText(name); //call app func
     app->setDocId(name.toInt());
-    app->connect();
+    if (app->connect())
+    {
+        auto text = app->getTextDocument();
+        if (text.first == ClientErrors::success)
+        {
+            ui->textEdit->setText(QString(text.second.c_str()));
+            startTimer(10000);
+        }
+        else
+            QMessageBox::critical(this, "Error", QString(text.second.c_str()));
+    }
+    else
+        QMessageBox::critical(this, "Error", "Impossible to connect to this document");
 }
 
 bool MainWindow::eventFilter(QObject *widget, QEvent *event)
@@ -113,10 +131,12 @@ bool MainWindow::eventFilter(QObject *widget, QEvent *event)
     if (widget == ui->textEdit && event->type() == QKeyEvent::KeyPress)
     {
         QKeyEvent *keyEvent = static_cast<QKeyEvent *>(event);
-        QString text = ui->textEdit->toPlainText();
+        QString text = QString(app->getTextDocument().second.c_str());
         int key = keyEvent->key();
         QTextCursor cursor = ui->textEdit->textCursor();
         int cursorPos = cursor.position();
+        if (cursorPos > text.length())
+            cursorPos = text.length();
         cout << cursorPos << endl;
         if (key == Qt::Key_Shift)
             shift = true;
@@ -135,6 +155,8 @@ bool MainWindow::eventFilter(QObject *widget, QEvent *event)
             app->update(cursorPos, operation);
             //text.remove(cursorPos, 1); //and here
         }
+        else if (key >= Qt::Key_0 && key <= Qt::Key_9 || key == 45)
+            return true;
         else
         {
             QString sym = QString(key);
@@ -142,17 +164,37 @@ bool MainWindow::eventFilter(QObject *widget, QEvent *event)
                 sym = sym.toLower();
             else if (shift)
                 shift = !shift;
+            cout << key << endl;
             string operation = to_string(cursorPos) + "," + sym.toStdString() + ",";
             operation += to_string(app->getSizeDoc() - cursorPos);
+            cout << operation << endl;
             app->update(cursorPos, operation);
             //text.insert(cursorPos, sym); //call app func
             cursorPos++;
         }
-        text = QString(app->getTextDocument().c_str());
+        auto txt = app->getTextDocument();
+        if (txt.first == ClientErrors::success)
+            text = QString(txt.second.c_str());
         ui->textEdit->setText(text);
         cursor.setPosition(cursorPos);
         ui->textEdit->setTextCursor((const QTextCursor) cursor);
         return true;
     }
     return false;
+}
+
+void MainWindow::timerEvent(QTimerEvent *event)
+{
+    Q_UNUSED(event);
+    QTextCursor cursor = ui->textEdit->textCursor();
+    int cursorPos = cursor.position();
+    auto text = app->getTextDocument();
+    if (text.first == ClientErrors::success)
+    {
+        ui->textEdit->setText(QString(text.second.c_str()));
+        if (cursorPos > text.second.length())
+            cursorPos = text.second.length();
+        cursor.setPosition(cursorPos);
+        ui->textEdit->setTextCursor((const QTextCursor) cursor);
+    }
 }
