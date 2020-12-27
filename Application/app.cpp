@@ -42,7 +42,7 @@ int main(int argc, const char * argv[]) {
     std::cin >> docId;
     app->setDocId(docId);
 
-    bool err = app->connect();
+    auto err = app->connect();
     while(err) {
         printMainMenu();
 
@@ -71,9 +71,9 @@ int main(int argc, const char * argv[]) {
                 }
                 std::string operation = std::to_string(pos) + "," + line + ",";
                 if (line[0] == '-') {
-                	operation += std::to_string(app->getSizeDoc() - pos + std::stoi(line));
+                    operation += std::to_string(app->getSizeDoc() - pos + std::stoi(line));
                 } else {
-                	operation += std::to_string(app->getSizeDoc() - pos);
+                    operation += std::to_string(app->getSizeDoc() - pos);
                 }
                 app->update(pos, operation);
                 break;

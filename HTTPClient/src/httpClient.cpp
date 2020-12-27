@@ -1,5 +1,5 @@
-#include "httpClient.h"
-#include "client.h"
+#include "../include/httpClient.h"
+#include "../include/client.h"
 
 namespace client {
 
